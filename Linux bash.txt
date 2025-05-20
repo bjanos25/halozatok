@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# A saját HOME könyvtár változóként
+HOME_DIR="$HOME"
+
+# 1. Könyvtárszerkezet létrehozása
+mkdir -p "$HOME_DIR/gyakorlat/ismetles/Proba/bash"
+mkdir -p "$HOME_DIR/gyakorlat/Elso/Linux"
+mkdir -p "$HOME_DIR/gyakorlat/Tmp"
+
+# 2. ism1.sh és ism2.sh fájlok létrehozása a Linux könyvtárban
+touch "$HOME_DIR/gyakorlat/Elso/Linux/ism1.sh"
+touch "$HOME_DIR/gyakorlat/Elso/Linux/ism2.sh"
+
+# 3. Másolás: Linux -> bash (tartalommal együtt)
+cp -r "$HOME_DIR/gyakorlat/Elso/Linux" "$HOME_DIR/gyakorlat/ismetles/Proba/bash/"
+
+# 4. ism1.sh átnevezése uj.sh-ra a másolt példányban
+mv "$HOME_DIR/gyakorlat/ismetles/Proba/bash/Linux/ism1.sh" "$HOME_DIR/gyakorlat/ismetles/Proba/bash/Linux/uj.sh"
+
+# 5. Hardlink létrehozása ujabb.script néven az uj.sh-ra
+ln "$HOME_DIR/gyakorlat/ismetles/Proba/bash/Linux/uj.sh" "$HOME_DIR/ujabb.script"
+
+# 6. Szoftlink létrehozása debian néven a Linux könyvtárra
+ln -s "$HOME_DIR/gyakorlat/Elso/Linux" "$HOME_DIR/debian"
+
+# 7. gyakorlat könyvtár részletes listázása, rekurzívan
+echo "===== gyakorlat könyvtár tartalma ====="
+ls -lR "$HOME_DIR/gyakorlat"
+
+# 8. Operációs rendszer adatai
+echo
+echo "===== Rendszerinformációk ====="
+echo "Hostname: $(hostname)"
+echo "Distro: $(lsb_release -d | cut -f2)"
+echo "Kernel: $(uname -r)"
+echo "OS Info: $(uname -a)"
